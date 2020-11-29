@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Flex Panels</title>
+</head>
+<body>
+	<style type="text/css">
+		html{
+			box-sizing: border-box;
+			background: #ffc600;
+			font-size: 20px;
+			font-weight: 200;
+		}
+
+		body{
+			margin: 0;
+		}
+
+		*, *:before, *:after{
+			box-sizing: inherit;
+		}
+
+		.panels{
+			min-height: 100vh;
+			overflow: hidden;
+			display: flex;
+		}
+
+		.panel{
+			background: #6b0f9c;
+			box-shadow: inset 0 0 0 5px;
+			color: white;
+			text-align: center;
+			align-items: center;
+			transition: font-size 0.7s cubic-bezier(0.61,-0.19,0.7,-0.11),
+						flex 0.7s cubic-bezier(0.61,-0.19,0.7,-0.11),
+						background 0.2s;
+			font-size: 20px;
+			background-size: cover;
+			background-position: center;
+			flex: 1;
+			justify-content: center;
+			align-items: center;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.panel1{
+			background-image: url('https://i.pinimg.com/originals/a9/eb/bf/a9ebbfe7cc0fde6dd957be2052040565.jpg');
+		}
+		.panel2{
+			background-image: url('https://abduzeedo.com/sites/default/files/styles/square_1x1/public/originals/abdz_infrared_arashiyama_mockup_0.jpg?itok=D_-Tf7rE');
+		}
+		.panel3{
+			background-image: url('https://i.pinimg.com/originals/5a/34/e7/5a34e70fec8a71fc78eefaa2f719630c.png');
+		}
+		.panel4{
+			background-image: url('https://cdn.vox-cdn.com/thumbor/CTEu-LzRxSsC8J0c03Ak94qOkbA=/0x0:2160x3840/1200x0/filters:focal(0x0:2160x3840):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19917284/VRG_Wallpaper_iPhone_SE_alt.0.png');
+		}
+		.panel5{
+			background-image: url('https://images.pexels.com/photos/799443/pexels-photo-799443.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
+		}
+
+		.panel > *{
+			margin: 0;
+			width: 100%;
+			transition: transform 0.5s;
+			flex: 1 0 auto;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.panel > *:first-child{transform: translateY(-100%);}
+		.panel.open-active > *:first-child{transform: translateY(0);}
+		.panel > *:last-child{transform: translateY(100%);}
+		.panel.open-active > *:last-child{transform: translateY(0);}
+
+		.panel p{
+			text-transform: uppercase;
+			text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+			font-size: 2em; 
+		}
+
+		.panel p:nth-child(2){
+			font-size: 4em;
+		}
+
+		.panel.open{
+			flex:5;
+			font-size: 40px;
+		}
+
+		.cta{
+			color: white;
+			text-decoration:none;
+		}
+	</style>
+
+	<div class="panels">
+		<div class="panel panel1">
+			<p>Hey</p>
+			<p>Let's</p>
+			<p>Dance</p>
+		</div>
+		<div class="panel panel2">
+			<p>Hey</p>
+			<p>Let's</p>
+			<p>Run</p>
+		</div>
+		<div class="panel panel3">
+			<p>Hey</p>
+			<p>Let's</p>
+			<p>Jump</p>
+		</div>
+		<div class="panel panel4">
+			<p>Hey</p>
+			<p>Let's</p>
+			<p>Walk</p>
+		</div>
+		<div class="panel panel5">
+			<p>Hey</p>
+			<p>Let's</p>
+			<p>Smile</p>
+		</div>
+	</div>
+	<script type="text/javascript">
+		const panels = document.querySelectorAll('.panel');
+
+		function toggleOpen() {
+			this.classList.toggle('open');
+		}
+
+		function toggleOpenActive(e){
+			if(e.propertyName.includes('flex-grow')){
+				this.classList.toggle('open-active');
+			}
+		}
+
+		panels.forEach(panel => panel.addEventListener('click',toggleOpen));
+		panels.forEach(panel => panel.addEventListener('transitionend',toggleOpenActive));
+	</script>
+</body>
+</html>
