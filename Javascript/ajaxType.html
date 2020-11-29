@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+<input class="search">
+<div class="suggestions"></div>
+<script type="text/javascript">
+	const endpoint = "https://raw.githubusercontent.com/hienvd/vietnam-cities-list/master/cities.json";
+
+	const cities = [];
+
+	fetch(endpoint).then(blob => blob.json()).then(data => cities.push(...data));
+	function findMatches(wordSearch, cities) {
+		return cities.filter(place => {
+			const regex = new RegExp(wordSearch, 'gi');
+			return place.city.match(regex);
+		})
+	}
+
+	function displayMatches(){
+		console.log(cities);
+		const matchArray = findMatches(this.value, cities);
+		const html = matchArray.map(place => {
+			return `
+				<li>
+					<span class="name">${place.city}</span>
+				</li>
+			`
+		}).join('');
+		suggestions.innerHTML = html;
+	}
+
+	const searchInput = document.querySelector('.search');
+	const suggestions = document.querySelector('.suggestions')
+
+	searchInput.addEventListener('change', displayMatches);
+	searchInput.addEventListener('keyup', displayMatches);
+</script>
+</body>
+</html>
