@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="clock">
+		<div class="clock-face">
+			<div>12</div>
+			<div style="position: relative;top: 320px">6</div>
+			<div style="position: relative;top: 115px; left: 155px">3</div>
+			<div style="position: relative;top: 90px; right: 155px">9</div>
+			<div class="hand hour-hand" style="background-color: red"></div>
+			<div class="hand min-hand" style="background-color: blue"></div>
+			<div class="hand second-hand"></div>
+		</div>
+	</div>
+
+	<style>
+		html{
+			text-align: center;
+			font-size: 12px;
+		}
+
+		body{
+			font-size: 2rem;
+			display: flex;
+			flex: 1;
+			min-height: 100vh;
+			align-items: center;
+		}
+
+		.clock{
+			width: 30rem;
+			height: 30rem;
+			border: 20px solid green;
+			border-radius: 50%;
+			margin: 50px auto;
+			position: relative;
+			padding: 2rem;
+		}
+
+		.clock-face{
+			position: relative;
+			width: 100%;
+			height: 100%;
+			transform: translateY(-3px);
+		}
+
+		.hand{
+			width: 50%;
+			height: 6px;
+			background: green;
+			position: absolute;
+			top:50%;
+			transform-origin: 100%;
+			transform: rotate(90deg);
+			transition: all 0.05s;
+			transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+		}
+	</style>
+
+	<script>
+		const secondHand = document.querySelector('.second-hand');
+		const minHand = document.querySelector('.min-hand');
+		const hourHand = document.querySelector('.hour-hand');
+		function setDate() {
+			const now = new Date();
+
+			const seconds = now.getSeconds();
+			const secondsDegrees = ((seconds/60) * 360) + 90;
+			secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+			const min = now.getMinutes();
+			const minsDegrees = ((min/60) * 360) + 90;
+			minHand.style.transform = `rotate(${minsDegrees}deg)`;
+
+			const hour = now.getHours();
+			const hourDegrees = ((hour/12) * 360) + 90;
+		
+			hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+		}
+
+		setInterval(setDate,1000);
+	</script>
+</body>
